@@ -22,11 +22,12 @@ class Board {
 			brd.appendChild(row);
 		}
 	}
+	// every button has its click function
 	btn_click(e) {
 		const num = parseInt(e.target.innerText);
 		if (num !== board.current) return;
 		e.target.disabled = true;
-		++board.current;
+		++this.current;
 	}
 	// fills buttons with random numbers
 	populate() {

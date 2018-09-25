@@ -5,6 +5,10 @@ html {
 	font-size: 10px;
 }
 
+body {
+	font-family: Helvetica;
+}
+
 :root {
 	--dark-color: black;
 	--light-color: white;
@@ -12,7 +16,7 @@ html {
 
 #board {
 	width: 26rem;
-	margin: 10rem auto;
+	margin: 4rem auto;
 }
 
 #board button {
@@ -43,4 +47,9 @@ html {
 
 #board button.blank:disabled {
 	color: var(--dark-color);
+}
+
+#time {
+	font-size: 4rem;
+	margin: 4rem auto;
 }
