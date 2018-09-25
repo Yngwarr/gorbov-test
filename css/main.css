@@ -5,6 +5,11 @@ html {
 	font-size: 10px;
 }
 
+:root {
+	--dark-color: black;
+	--light-color: white;
+}
+
 #board {
 	width: 26rem;
 	margin: 10rem auto;
@@ -17,9 +22,9 @@ html {
 	min-height: 5rem;
 
 	font-size: 2rem;
-	background-color: white;
-	color: black;
-	border: 2px solid black;
+	background-color: var(--light-color);
+	color: var(--dark-color);
+	border: 2px solid var(--dark-color);
 	border-radius: 8px;
 	margin: .1rem;
 
@@ -28,6 +33,14 @@ html {
 }
 
 #board button:disabled {
-	background-color: black;
-	color: white;
+	background-color: var(--dark-color);
+	color: var(--light-color);
+}
+
+#board button.blank {
+	color: var(--light-color);
+}
+
+#board button.blank:disabled {
+	color: var(--dark-color);
 }
