@@ -14,7 +14,12 @@ function start() {
 }
 
 function fail(btn) {
-	timer.stop();
+	timer.stop(true);
 	//board.wave(null, null, null, 'red');
-	board.circle(btn, 'red');
+	board.circle(btn, 'red', () => {
+		setTimeout(() => {
+			timer.reset();
+			start();
+		}, 500)
+	});
 }

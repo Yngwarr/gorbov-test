@@ -33,6 +33,16 @@ class Board {
 			return;
 		}
 		timer.snapshot();
+		if (e.target.innerText === '25') {
+			// TODO store some values, eh?
+			timer.stop();
+			setTimeout(() => {
+				this.reset(() => {
+					timer.reset();
+					timer.start();
+				});
+			}, 500);
+		}
 		e.target.disabled = true;
 		++this.current;
 	}
@@ -92,9 +102,9 @@ class Board {
 		}
 		f(1, true, _cls, switch_cb, wave_cb, end_cb);
 	}
-	circle(btn, cls) {
+	circle(btn, cls, done_cb) {
 		let [x, y] = [btn.dataset.x, btn.dataset.y];
-		let f = (bs, _bs, cls, brd) => {
+		let f = (bs, _bs, cls, brd, dcb) => {
 			let nbs = [];
 			for (let i = 0; i < bs.length; ++i) {
 				bs[i].classList.add(cls);
@@ -105,10 +115,13 @@ class Board {
 				_bs[i].classList.remove(cls);
 			}
 			nbs = _.uniq(nbs);
-			if (bs.length === 0) return;
-			setTimeout(f, 200, nbs, bs, cls, brd);
+			if (bs.length === 0) {
+				dcb();
+				return;
+			}
+			setTimeout(f, 200, nbs, bs, cls, brd, dcb);
 		};
-		f([btn], [], cls, this);
+		f([btn], [], cls, this, done_cb);
 	}
 	nhood(btn) {
 		let [x, y] = [parseInt(btn.dataset.x), parseInt(btn.dataset.y)];
