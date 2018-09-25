@@ -25,12 +25,14 @@ class Timer {
 		this.to = setTimeout(() => { this.tick.call(this) }, 50);
 	}
 	start() {
+		this.el.classList.remove('stopped');
 		this.t_start = new Date();
 		this.t_end = new Date();
 		this.tick();
 	}
 	stop() {
 		clearTimeout(this.to);
+		this.el.classList.add('stopped');
 	}
 	snapshot() {
 		this.dump.push(this.t);
