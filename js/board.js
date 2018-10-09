@@ -44,6 +44,9 @@ class Board {
 			}, 500);
 		}
 		e.target.disabled = true;
+		setTimeout((t) => {
+			t.disabled = false;
+		}, 200, e.target)
 		++this.current;
 	}
 	// fills buttons with random numbers

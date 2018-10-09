@@ -14,12 +14,21 @@ function start() {
 }
 
 function fail(btn) {
-	timer.stop(true);
-	//board.wave(null, null, null, 'red');
-	board.circle(btn, 'red', () => {
+	//timer.stop(true);
+	timer.el.classList.add('stopped');
+	btn.classList.add('red');
+	setTimeout((b) => {
+		btn.classList.remove('red');
 		setTimeout(() => {
-			timer.reset();
-			start();
-		}, 500)
-	});
+			timer.el.classList.remove('stopped');
+		}, 200);
+	}, 200, btn);
+
+
+	//board.circle(btn, 'red', () => {
+		//setTimeout(() => {
+			//timer.reset();
+			//start();
+		//}, 500)
+	//});
 }

@@ -16,17 +16,17 @@ body {
 }
 
 #board {
-	width: 26rem;
+	width: 36rem;
 	margin: 4rem auto;
 }
 
 #board button {
-	width: 5rem;
-	min-width: 5rem;
-	height: 5rem;
-	min-height: 5rem;
+	width: 7rem;
+	min-width: 7rem;
+	height: 7rem;
+	min-height: 7rem;
 
-	font-size: 2rem;
+	font-size: 3rem;
 	background-color: var(--light-color);
 	color: var(--dark-color);
 	border: 2px solid var(--dark-color);

@@ -30,9 +30,8 @@ class Timer {
 		this.t_end = new Date();
 		this.tick();
 	}
-	stop(shake) {
+	stop() {
 		clearTimeout(this.to);
-		if (shake) this.el.classList.add('stopped');
 	}
 	snapshot() {
 		this.dump.push(this.t);
