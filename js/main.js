@@ -6,15 +6,15 @@ let timer;
 function init() {
 	board = new Board();
 	timer = new Timer();
-	start();
+	//start();
 }
 
 function start() {
+	document.getElementById('ctl').classList.add('disabled');
 	board.reset(() => { timer.start(); });
 }
 
 function fail(btn) {
-	//timer.stop(true);
 	timer.el.classList.add('stopped');
 	btn.classList.add('red');
 	setTimeout((b) => {
@@ -23,12 +23,4 @@ function fail(btn) {
 			timer.el.classList.remove('stopped');
 		}, 200);
 	}, 200, btn);
-
-
-	//board.circle(btn, 'red', () => {
-		//setTimeout(() => {
-			//timer.reset();
-			//start();
-		//}, 500)
-	//});
 }

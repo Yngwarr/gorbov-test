@@ -4,7 +4,7 @@ class Timer {
 		// timeout ID used to escape the loop
 		this.to = null;
 		this.reset();
-		this.draw();
+		//this.draw();
 	}
 	reset() {
 		// elapsed time, updates every tick

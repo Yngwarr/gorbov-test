@@ -13,7 +13,7 @@ class Board {
 			for (let j = 0; j < SIDE; ++j) {
 				let btn = document.createElement('button');
 				btn.appendChild(document.createTextNode(' '));
-				btn.classList.add(`wave-${j+i+1}`, 'blank');
+				btn.classList.add(`wave-${j+i+1}`, 'blank', 'idle');
 				btn.dataset.x = i;
 				btn.dataset.y = j;
 				btn.addEventListener('click', (e) => {
@@ -26,6 +26,7 @@ class Board {
 	}
 	// every button has its click function
 	btn_click(e) {
+		if (e.target.classList.contains('idle')) return;
 		const num = parseInt(e.target.innerText);
 		if (num !== board.current) {
 			// misclick
@@ -60,6 +61,9 @@ class Board {
 	}
 	// wipes a board and repopulates it
 	reset(done_cb) {
+		document.querySelectorAll('#board button.idle').forEach((b) => {
+			b.classList.remove('idle');
+		});
 		this.wave((b, fwd) => {
 			if (fwd) b.classList.add('blank');
 			else b.classList.remove('blank');
