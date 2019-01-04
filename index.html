@@ -5,9 +5,11 @@
 		<title>Тест Шульте</title>
 		<link href='./css/float-label.css' rel='stylesheet'>
 		<link href='./css/modal.css' rel='stylesheet'>
+		<link href='./css/svg.css' rel='stylesheet'>
 		<link href='./css/main.css' rel='stylesheet'>
 		<script src='./js/3rd/underscore-min.js'></script>
 		<script src='./js/3rd/sha256.js'></script>
+		<script src='./js/3rd/d3.js'></script>
 		<script src='./js/board.js'></script>
 		<script src='./js/timer.js'></script>
 		<script src='./js/session.js'></script>
@@ -42,6 +44,39 @@
 					<button id='btn-login'>Войти</button>
 					<button onclick='hide_modal("win-login")'>Отмена</button>
 				</div>
+			</div>
+		</div>
+		<div id='win-stats' class='modal'>
+			<div class='modal-content'>
+				<svg width='800' height='600' viewBox='-20 0 780 600'>
+					<g id='bars'>
+						<!--<rect x='15' y='190' width='10' height='100'/>-->
+						<!--<rect x='30' y='126' width='10' height='164'/>-->
+						<!--<rect x='45' y='161' width='10' height='129'/>-->
+						<!--<rect x='60' y='161' width='10' height='129'/>-->
+						<!--<rect x='75' y='161' width='10' height='129'/>-->
+						<!--<rect x='90' y='161' width='10' height='129'/>-->
+						<!--<rect x='105' y='161' width='10' height='129'/>-->
+						<!--<rect x='120' y='161' width='10' height='129'/>-->
+						<!--<rect x='135' y='161' width='10' height='129'/>-->
+						<!--<rect x='150' y='161' width='10' height='129'/>-->
+						<!--<rect x='165' y='161' width='10' height='129'/>-->
+						<!--<rect x='180' y='161' width='10' height='129'/>-->
+						<!--<rect x='195' y='161' width='10' height='129'/>-->
+						<!--<rect x='210' y='161' width='10' height='129'/>-->
+						<!--<rect x='225' y='161' width='10' height='129'/>-->
+						<!--<rect x='240' y='161' width='10' height='129'/>-->
+						<!--<rect x='255' y='161' width='10' height='129'/>-->
+						<!--<rect x='270' y='161' width='10' height='129'/>-->
+						<!--<rect x='285' y='161' width='10' height='129'/>-->
+						<!--<rect x='300' y='161' width='10' height='129'/>-->
+						<!--<rect x='315' y='161' width='10' height='129'/>-->
+					</g>
+					<g id='axes'>
+						<!--<line x1='10' y1='290' x2='10' y2='10'/>-->
+						<!--<line x1='10' y1='290' x2='400' y2='290'/>-->
+					</g>
+				</svg>
 			</div>
 		</div>
 	</body>

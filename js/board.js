@@ -1,6 +1,9 @@
 class Board {
 	constructor() {
 		this.current = 1;
+		this.stage = 0;
+		//this.STAGE_LIM = 5;
+		this.STAGE_LIM = 2;
 		this.init();
 	}
 	// creates buttons in the board
@@ -30,19 +33,29 @@ class Board {
 		const num = parseInt(e.target.innerText);
 		if (num !== board.current) {
 			// misclick
-			fail(e.target);
+			fail(e.target);	
+			timer.snapshot('f');
 			return;
 		}
 		timer.snapshot();
 		if (e.target.innerText === '25') {
 			// TODO store some values, eh?
 			timer.stop();
-			setTimeout(() => {
-				this.reset(() => {
-					timer.reset();
-					timer.start();
-				});
-			}, 500);
+			if (++this.stage < this.STAGE_LIM) {
+				setTimeout(() => {
+					this.reset(() => {
+						timer.reset();
+						timer.start();
+					});
+				}, 500);
+			} else {
+				setTimeout(() => this.wipe_wave(), 500);
+				document.getElementById('ctl').classList.remove('disabled');
+				document.getElementById('time').textContent = 'Тест Шульте';
+				timer.reset();
+				timer.dump = null;
+				// TODO show results
+			}
 		}
 		e.target.disabled = true;
 		setTimeout((t) => {

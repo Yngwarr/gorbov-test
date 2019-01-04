@@ -3,7 +3,9 @@ class Timer {
 		this.el = document.getElementById('time');
 		// timeout ID used to escape the loop
 		this.to = null;
-		this.reset();
+		this.dumps = [];
+		this.dump = null;
+		//this.reset();
 		//this.draw();
 	}
 	reset() {
@@ -12,7 +14,10 @@ class Timer {
 		this.t_start = 0;
 		this.t_end = 0;
 		// a storage for time values
-		this.dump = [];
+		if (this.dump !== null) {
+			this.dumps.push(JSON.stringify(this.dump));
+		}
+		this.dump = {s: [], f: []};
 	}
 	draw() {
 		let t = this.t;
@@ -33,8 +38,9 @@ class Timer {
 	stop() {
 		clearTimeout(this.to);
 	}
-	snapshot() {
-		this.dump.push(this.t);
+	snapshot(kind) {
+		if (kind === 'f') this.dump.f.push(this.t);
+		else this.dump.s.push(this.t);
 	}
 }
 
