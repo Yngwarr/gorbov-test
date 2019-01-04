@@ -95,9 +95,15 @@ button {
 	color: var(--dark-color);
 }
 
+h2 {
+	font-size: 2rem;
+	margin: 1rem auto;
+}
+
 #time {
 	font-size: 6rem;
 	margin: 4rem auto;
+	margin-bottom: 2rem;
 }
 
 #time.stopped {
