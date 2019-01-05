@@ -3,7 +3,7 @@ class Board {
 		this.current = 1;
 		this.stage = 0;
 		//this.STAGE_LIM = 5;
-		this.STAGE_LIM = 2;
+		this.STAGE_LIM = 1;
 		this.init();
 	}
 	// creates buttons in the board
@@ -54,7 +54,9 @@ class Board {
 				document.getElementById('time').textContent = 'Тест Шульте';
 				timer.reset();
 				timer.dump = null;
-				// TODO show results
+				show_modal('win-stats');
+				// TODO choose the result to draw
+				draw_results(JSON.parse(timer.dumps[0]));
 			}
 		}
 		e.target.disabled = true;

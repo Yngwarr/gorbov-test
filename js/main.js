@@ -27,7 +27,13 @@ function init() {
 		alter_page();
 	});
 
-	let res = JSON.parse("{\"s\":[1508,2011,2814,4322,6986,8444,11614,12065,14327,14729,16135,16689,18096,24075,24677,25984,28347,30958,31762,33219,34075,35734,36186,36588,37191],\"f\":[3870,4925,6282]}");
+	draw_results(JSON.parse("{\"s\":[1508,2011,2814,4322,6986,8444,11614,12065,14327,14729,16135,16689,18096,24075,24677,25984,28347,30958,31762,33219,34075,35734,36186,36588,37191],\"f\":[3870,4925,6282]}"));
+	show_modal('win-stats');
+
+	//start();
+}
+
+function draw_results(res) {
 	let f = res.f;
 	let s = res.s;
 	let mcs = [];
@@ -39,8 +45,6 @@ function init() {
 		}
 	}
 	chart(deltify(res.s), mcs);
-
-	//start();
 }
 
 // mock for chart
@@ -83,6 +87,7 @@ function chart(data, mcs) {
 	misclick.selectAll('rect')
 		.data(mcs)
 		.enter().append('rect')
+		.transition().delay(250)
 		.attr('x', ([b, h]) => x(b+1))
 		.attr('y', ([b, h]) => 290-y(h))
 		.attr('width', 10)
