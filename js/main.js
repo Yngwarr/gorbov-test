@@ -27,15 +27,25 @@ function init() {
 		alter_page();
 	});
 
-	chart(deltify([1508,2011,2814,4322,6986,8444,11614,12065,14327,14729,16135,16689,18096,24075,24677,25984,28347,30958,31762,33219,34075,35734,36186,36588,37191]));
+	let res = JSON.parse("{\"s\":[1508,2011,2814,4322,6986,8444,11614,12065,14327,14729,16135,16689,18096,24075,24677,25984,28347,30958,31762,33219,34075,35734,36186,36588,37191],\"f\":[3870,4925,6282]}");
+	let f = res.f;
+	let s = res.s;
+	let mcs = [];
+	for (let i = 0; i < f.length; ++i) {
+		for (let j = 0; j < s.length; ++j) {
+			if (f[i] > s[j]) continue;
+			mcs.push([j, s[j] - f[i]]);
+			break;
+		}
+	}
+	chart(deltify(res.s), mcs);
 
 	//start();
 }
 
 // mock for chart
-// TODO add misclick information
 // TODO add overall info too
-function chart(data) {
+function chart(data, mcs) {
 	/* scales for bars */
 	let x = d3.scaleLinear().domain([0, 25]).range([0, 375]);
 	let y = d3.scaleLinear().domain([0, d3.max(data)]).range([0, 290]);
@@ -66,6 +76,17 @@ function chart(data) {
 		.attr('class', 'y axis')
 		.attr('transform', 'translate(10,0)')
 		.call(yAxis);
+
+	/* drawing misclicks */
+	let misclick = svg.selectAll('.misclick');
+	misclick.selectAll('rect').remove();
+	misclick.selectAll('rect')
+		.data(mcs)
+		.enter().append('rect')
+		.attr('x', ([b, h]) => x(b+1))
+		.attr('y', ([b, h]) => 290-y(h))
+		.attr('width', 10)
+		.attr('height', 5);
 }
 
 function start() {

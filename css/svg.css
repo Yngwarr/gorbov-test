@@ -8,3 +8,9 @@ svg #bars > rect {
 	fill: #6677FF;
 	stroke-width: 2;
 }
+
+svg .misclick > rect {
+	stroke: #FF4444;
+	fill: #FF7766;
+	stroke-width: 2;
+}
