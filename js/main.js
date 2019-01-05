@@ -27,34 +27,37 @@ function init() {
 		alter_page();
 	});
 
-	chart();
+	chart(deltify([1508,2011,2814,4322,6986,8444,11614,12065,14327,14729,16135,16689,18096,24075,24677,25984,28347,30958,31762,33219,34075,35734,36186,36588,37191]));
 
 	//start();
 }
 
 // mock for chart
-// TODO customize data
-// TODO make sure it rebuilds correctly
 // TODO add misclick information
 // TODO add overall info too
-function chart() {
-	let data = deltify([1508,2011,2814,4322,6986,8444,11614,12065,14327,14729,16135,16689,18096,24075,24677,25984,28347,30958,31762,33219,34075,35734,36186,36588,37191]);
+function chart(data) {
+	/* scales for bars */
 	let x = d3.scaleLinear().domain([0, 25]).range([0, 375]);
 	let y = d3.scaleLinear().domain([0, d3.max(data)]).range([0, 290]);
+	/* scales for axes */
 	let xa = d3.scaleLinear().domain([1, 26]).range([0, 375]);
 	let ya = d3.scaleLinear().domain([0, d3.max(data)]).range([290, 0]);
+	/* axes */
 	let xAxis = d3.axisBottom().scale(xa).ticks(25);
 	let yAxis = d3.axisLeft().scale(ya);
-	d3.select('svg #bars')
-		.selectAll('rect')
-			.data(data)
-		.enter().append('rect')
-			.attr('x', (d, i) => x(i+1))
-			.attr('y', (d) => 290-y(d))
-			.attr('width', 10)
-			.attr('height', (d) => y(d));
 
+	/* drawing bars */
+	let bars = d3.select('svg #bars').selectAll('rect').data(data);
+	bars.merge(bars)
+		.transition()
+		//.attr('x', (d, i) => x(i+1))
+		.attr('y', (d) => 290-y(d))
+		//.attr('width', 10)
+		.attr('height', (d) => y(d));
+
+	/* drawing axes */
 	let svg = d3.select('svg');
+	svg.selectAll('.axis').remove();
 	svg.append('g')
 		.attr('class', 'x axis')
 		.attr('transform', 'translate(10,290)')
@@ -108,7 +111,8 @@ function alter_page() {
 	}
 }
 
-function deltify(arr) {
+function deltify(_arr) {
+	let arr = JSON.parse(JSON.stringify(_arr));
 	let acc = arr[0];
 	for (let i = 1; i < arr.length; ++i) {
 		arr[i] -= acc;
