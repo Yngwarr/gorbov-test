@@ -49,10 +49,11 @@
 		<div id='win-stats' class='modal hidden'>
 			<div class='modal-content'>
 				<center>
-					<h2>Тест пройден</h2>
+					<h1>Тест пройден</h1>
 				</center>
-				<svg width='800' height='600' viewBox='-20 0 780 600'>
-					<g id='bars'>
+				<div class='flex-row'>
+					<svg width='500' height='400' viewBox='-40 0 460 350'>
+						<g id='bars'>
 						<rect x='15' y='290' width='10' height='0'/>
 						<rect x='30' y='290' width='10' height='0'/>
 						<rect x='45' y='290' width='10' height='0'/>
@@ -78,9 +79,53 @@
 						<rect x='345' y='290' width='10' height='0'/>
 						<rect x='360' y='290' width='10' height='0'/>
 						<rect x='375' y='290' width='10' height='0'/>
-					</g>
-					<g class='misclick'></g>
-				</svg>
+						</g>
+						<g class='misclick'></g>
+					</svg>
+					<div class='flex-column'>
+						<select onchange='change_chart_test(parseInt(this.value)-1)'>
+							<option value='1'>Тест 1</option>
+							<option value='2'>Тест 2</option>
+							<option value='3'>Тест 3</option>
+							<option value='4'>Тест 4</option>
+							<option value='5'>Тест 5</option>
+						</select>
+						<h3>
+							<span class='math' title='среднее время реакции'>t avg</span>:
+							<span id='avg-t'>8</span> с
+						</h3>
+						<h3>
+							<span class='math' title='наибольшее время реакции'>t max</span>:
+							<span id='max-t'>8</span> с
+						</h3>
+						<h3>
+							<span class='math' title='наименьшее время реакции'>t min</span>:
+							<span id='min-t'>8</span> с
+						</h3>
+						<h3>
+							<span class='math' title='количество ошибок'>Ошибок</span>:
+							<span id='mc'>8</span>
+						</h3>
+						<hr>
+						<h3>
+							<span class='math' title='общее среднее время реакции'>overall t avg</span>:
+							<span id='oa-avg-t' title='секунд'>8</span> c
+						</h3>
+						<h3>
+							<span class='math' title='общее наибольшее время реакции'>overall t max</span>:
+							<span id='oa-max-t'>8</span> c
+						</h3>
+						<h3>
+							<span class='math' title='общее наименьшее время реакции'>overall t min</span>:
+							<span id='oa-min-t'>8</span> c
+						</h3>
+						<h3>
+							<span class='math' title='среднее количество ошибок за тест'>Ошибок в среднем</span>:
+							<span id='avg-mc'>8</span>
+						</h3>
+						<button onclick='hide_modal("win-stats")'>Закрыть</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>

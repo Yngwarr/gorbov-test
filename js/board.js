@@ -3,7 +3,7 @@ class Board {
 		this.current = 1;
 		this.stage = 0;
 		//this.STAGE_LIM = 5;
-		this.STAGE_LIM = 1;
+		this.STAGE_LIM = 5;
 		this.init();
 	}
 	// creates buttons in the board
@@ -54,9 +54,20 @@ class Board {
 				document.getElementById('time').textContent = 'Тест Шульте';
 				timer.reset();
 				timer.dump = null;
-				show_modal('win-stats');
+
 				// TODO choose the result to draw
+				let res = timer.dumps.map(d => JSON.parse(d));
+				let ts = _.flatten(res.map(r => deltify(r.s)));
+				let mcs = res.map(r => r.f.length);
+				let avg_t = ts.reduce((a,b) => a+b) / ts.length;
+				let avg_mcs = mcs.reduce((a,b) => a+b) / mcs.length;
+				document.getElementById('oa-avg-t').textContent = p_secs(avg_t);
+				document.getElementById('oa-max-t').textContent = p_secs(_.max(ts));
+				document.getElementById('oa-min-t').textContent = p_secs(_.min(ts));
+				document.getElementById('avg-mc').textContent = avg_mcs;
 				draw_results(JSON.parse(timer.dumps[0]));
+
+				show_modal('win-stats');
 			}
 		}
 		e.target.disabled = true;

@@ -51,3 +51,9 @@ function p_time(t) {
 	let mt = m ? `${m}:` : '';
 	return `${mt}${s/10 << 0}${s%10}.${ms/100 << 0}`;
 }
+
+function p_secs(t) {
+	let ms = t % 1000 << 0;
+	let s = t / 1000 << 0;
+	return `${s}.${ms/100 << 0}`;
+}

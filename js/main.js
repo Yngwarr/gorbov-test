@@ -27,8 +27,8 @@ function init() {
 		alter_page();
 	});
 
-	draw_results(JSON.parse("{\"s\":[1508,2011,2814,4322,6986,8444,11614,12065,14327,14729,16135,16689,18096,24075,24677,25984,28347,30958,31762,33219,34075,35734,36186,36588,37191],\"f\":[3870,4925,6282]}"));
-	show_modal('win-stats');
+	//draw_results(JSON.parse("{\"s\":[1508,2011,2814,4322,6986,8444,11614,12065,14327,14729,16135,16689,18096,24075,24677,25984,28347,30958,31762,33219,34075,35734,36186,36588,37191],\"f\":[3870,4925,6282]}"));
+	//show_modal('win-stats');
 
 	//start();
 }
@@ -37,6 +37,7 @@ function draw_results(res) {
 	let f = res.f;
 	let s = res.s;
 	let mcs = [];
+	/* prepare misclick info for drawing */
 	for (let i = 0; i < f.length; ++i) {
 		for (let j = 0; j < s.length; ++j) {
 			if (f[i] > s[j]) continue;
@@ -44,7 +45,17 @@ function draw_results(res) {
 			break;
 		}
 	}
-	chart(deltify(res.s), mcs);
+	s = deltify(res.s);
+	/* draw the info */
+	chart(s, mcs);
+	document.getElementById('avg-t').textContent
+		= p_secs(s.reduce((a, b) => a + b) / s.length);
+	document.getElementById('min-t').textContent
+		= p_secs(_.min(s));
+	document.getElementById('max-t').textContent
+		= p_secs(_.max(s));
+	document.getElementById('mc').textContent
+		= f.length.toString();
 }
 
 // mock for chart
@@ -145,4 +156,9 @@ function deltify(_arr) {
 		acc += arr[i];
 	}
 	return arr;
+}
+
+function change_chart_test(n) {
+	if (n > timer.dumps.length || n < 0) return;
+	draw_results(JSON.parse(timer.dumps[n]));
 }
