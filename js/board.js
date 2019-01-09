@@ -39,7 +39,6 @@ class Board {
 		}
 		timer.snapshot();
 		if (e.target.innerText === '25') {
-			// TODO store some values, eh?
 			timer.stop();
 			if (++this.stage < this.STAGE_LIM) {
 				setTimeout(() => {
@@ -55,18 +54,9 @@ class Board {
 				timer.reset();
 				timer.dump = null;
 
-				// TODO choose the result to draw
-				let res = timer.dumps.map(d => JSON.parse(d));
-				let ts = _.flatten(res.map(r => deltify(r.s)));
-				let mcs = res.map(r => r.f.length);
-				let avg_t = ts.reduce((a,b) => a+b) / ts.length;
-				let avg_mcs = mcs.reduce((a,b) => a+b) / mcs.length;
-				document.getElementById('oa-avg-t').textContent = p_secs(avg_t);
-				document.getElementById('oa-max-t').textContent = p_secs(_.max(ts));
-				document.getElementById('oa-min-t').textContent = p_secs(_.min(ts));
-				document.getElementById('avg-mc').textContent = avg_mcs;
-				draw_results(JSON.parse(timer.dumps[0]));
+				draw_stats();
 
+				session.save_dump(timer.dumps);
 				show_modal('win-stats');
 			}
 		}

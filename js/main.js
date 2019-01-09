@@ -14,7 +14,7 @@ function init() {
 		let password = document.getElementById('in-password').value;
 		let res = session.login(username, password);
 		if (res[0]) {
-			// TODO alter page layout for logged in user
+			timer.dumps = session.load_dump();
 			alter_page();
 			hide_modal('win-login');
 		} else {
@@ -31,6 +31,7 @@ function init() {
 		let username = document.getElementById('reg-username').value;
 		let res = session.sign_up(username, pwd[0]);
 		if (res[0]) {
+			timer.dumps = session.load_dump();
 			alter_page();
 			hide_modal('win-reg');
 		} else {
@@ -41,6 +42,11 @@ function init() {
 	document.getElementById('sign-out').addEventListener('click', (e) => {
 		session.logout();
 		alter_page();
+	});
+
+	document.getElementById('show-dump').addEventListener('click', (e) => {
+		draw_stats();
+		show_modal('win-stats');
 	});
 
 	let note = document.getElementById('note');
@@ -61,6 +67,19 @@ function init() {
 	//show_modal('win-stats');
 
 	//start();
+}
+
+function draw_stats() {
+	let res = timer.dumps.map(d => JSON.parse(d));
+	let ts = _.flatten(res.map(r => deltify(r.s)));
+	let mcs = res.map(r => r.f.length);
+	let avg_t = ts.reduce((a,b) => a+b) / ts.length;
+	let avg_mcs = mcs.reduce((a,b) => a+b) / mcs.length;
+	document.getElementById('oa-avg-t').textContent = p_secs(avg_t);
+	document.getElementById('oa-max-t').textContent = p_secs(_.max(ts));
+	document.getElementById('oa-min-t').textContent = p_secs(_.min(ts));
+	document.getElementById('avg-mc').textContent = avg_mcs;
+	draw_results(JSON.parse(timer.dumps[0]));
 }
 
 function draw_results(res) {
@@ -89,7 +108,6 @@ function draw_results(res) {
 }
 
 // mock for chart
-// TODO add overall info too
 function chart(data, mcs) {
 	/* scales for bars */
 	let x = d3.scaleLinear().domain([0, 25]).range([0, 375]);
@@ -178,16 +196,11 @@ function alter_page() {
 		document.getElementById('sign-up').classList.remove('hidden');
 		document.getElementById('status').textContent = '';
 	}
-}
-
-function deltify(_arr) {
-	let arr = JSON.parse(JSON.stringify(_arr));
-	let acc = arr[0];
-	for (let i = 1; i < arr.length; ++i) {
-		arr[i] -= acc;
-		acc += arr[i];
+	if (timer.dumps.length !== 0) {
+		document.getElementById('show-dump').classList.remove('hidden');
+	} else {
+		document.getElementById('show-dump').classList.add('hidden');
 	}
-	return arr;
 }
 
 function change_chart_test(n) {
@@ -201,4 +214,14 @@ function notify(head, body) {
 	document.querySelector('#note p').textContent = body;
 	note.classList.remove('hidden');
 	note.classList.add('fade-in');
+}
+
+function deltify(_arr) {
+	let arr = JSON.parse(JSON.stringify(_arr));
+	let acc = arr[0];
+	for (let i = 1; i < arr.length; ++i) {
+		arr[i] -= acc;
+		acc += arr[i];
+	}
+	return arr;
 }

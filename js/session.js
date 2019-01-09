@@ -37,4 +37,19 @@ class Session {
 		this.user = name;
 		return [true];
 	}
+	save_dump(dump) {
+		if (this.user === null) return false;
+		if (!localStorage.ds) localStorage.ds = "{}";
+		let ds = JSON.parse(localStorage.ds);
+		ds[this.user] = dump;
+		localStorage.ds = JSON.stringify(ds);
+		return true;
+	}
+	load_dump() {
+		if (this.user === null) return [];
+		if (!localStorage.ds) return [];
+		let ds = JSON.parse(localStorage.ds);
+		if (!ds[this.user]) return [];
+		return ds[this.user];
+	}
 }
