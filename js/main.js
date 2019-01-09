@@ -27,6 +27,20 @@ function init() {
 		alter_page();
 	});
 
+	let note = document.getElementById('note');
+	note.addEventListener('animationend', (e) => {
+		if (e.animationName === 'fadein') {
+			note.classList.remove('fade-in');
+			setTimeout(() => {
+				note.classList.add('fade-out');
+			}, 3000);
+		}
+		if (e.animationName === 'fadeout') {
+			note.classList.add('hidden');
+			note.classList.remove('fade-out');
+		}
+	})
+
 	//draw_results(JSON.parse("{\"s\":[1508,2011,2814,4322,6986,8444,11614,12065,14327,14729,16135,16689,18096,24075,24677,25984,28347,30958,31762,33219,34075,35734,36186,36588,37191],\"f\":[3870,4925,6282]}"));
 	//show_modal('win-stats');
 
@@ -161,4 +175,12 @@ function deltify(_arr) {
 function change_chart_test(n) {
 	if (n > timer.dumps.length || n < 0) return;
 	draw_results(JSON.parse(timer.dumps[n]));
+}
+
+function notify(head, body) {
+	let note = document.getElementById('note');
+	document.querySelector('#note h1').textContent = head;
+	document.querySelector('#note p').textContent = body;
+	note.classList.remove('hidden');
+	note.classList.add('fade-in');
 }

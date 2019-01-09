@@ -118,6 +118,29 @@ h2 {
 	text-decoration: underline;
 }
 
+.note {
+	z-index: 1;
+	position: absolute;
+	bottom: 5vh;
+	right: 5vw;
+	background: #f55;
+	border-radius: 10px;
+	animation-duration: 1s;
+}
+
+.note > div {
+	margin: 2rem;
+}
+
+.note h1 {
+	font-size: 2.4rem;
+	margin-bottom: .5rem;
+}
+
+.note p {
+	font-size: 1.6rem;
+}
+
 @keyframes shake {
 	10%, 90% {
 		transform: translate3d(-1px, 0, 0);
@@ -136,3 +159,16 @@ h2 {
 		transform: translate3d(4px, 0, 0);
 	}
 }
+
+@keyframes fadein {
+	0% { opacity: 0 }
+	100% { opacity: 1 }
+}
+
+@keyframes fadeout {
+	0% { opacity: 1 }
+	100% { opacity: 0 }
+}
+
+.fade-in { animation-name: fadein; }
+.fade-out { animation-name: fadeout; }
