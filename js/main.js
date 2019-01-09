@@ -19,6 +19,7 @@ function init() {
 			hide_modal('win-login');
 		} else {
 			// TODO add an error notification, ideally with a message
+			notify('Ой!', res[1]);
 		}
 	});
 

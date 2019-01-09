@@ -125,7 +125,7 @@ h2 {
 	right: 5vw;
 	background: #f55;
 	border-radius: 10px;
-	animation-duration: 1s;
+	animation-duration: .5s;
 }
 
 .note > div {
