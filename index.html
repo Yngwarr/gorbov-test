@@ -25,12 +25,13 @@
 		<center>
 			<div id='ctl'>
 				<button id='sign-in' onclick='show_modal("win-login")'>Войти</button>
+				<button id='sign-up' onclick='show_modal("win-reg")'>Зарегистрироваться</button>
 				<button id='sign-out' class='hidden'>Выйти</button>
 				<button id='start' onclick='start()'>Начать</button>
-				<button id='about'>Что это?</button>
+				<!--<button id='about'>Что это?</button>-->
 			</div>
 		</center>
-		<div id='win-login' class='modal hidden'>
+		<div id='win-login' class='modal form hidden'>
 			<div class='modal-content'>
 				<div class='field'>
 					<input id='in-username' type='text' pattern=".+" required placeholder='Имя пользователя'>
@@ -43,6 +44,26 @@
 				<div class='ctl'>
 					<button id='btn-login'>Войти</button>
 					<button onclick='hide_modal("win-login")'>Отмена</button>
+				</div>
+			</div>
+		</div>
+		<div id='win-reg' class='modal form hidden'>
+			<div class='modal-content'>
+				<div class='field'>
+					<input id='reg-username' type='text' pattern=".+" required placeholder='Имя пользователя'>
+					<label>Имя пользователя</label>
+				</div>
+				<div class='field'>
+					<input id='reg-passwd' type='password' pattern=".+" required placeholder='Пароль'>
+					<label>Пароль</label>
+				</div>
+				<div class='field'>
+					<input id='reg-passwd2' type='password' pattern=".+" required placeholder='Пароль ещё раз'>
+					<label>Пароль ещё раз</label>
+				</div>
+				<div class='ctl'>
+					<button id='btn-reg'>Зарегистрироваться</button>
+					<button onclick='hide_modal("win-reg")'>Отмена</button>
 				</div>
 			</div>
 		</div>

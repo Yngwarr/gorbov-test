@@ -18,7 +18,22 @@ function init() {
 			alter_page();
 			hide_modal('win-login');
 		} else {
-			// TODO add an error notification, ideally with a message
+			notify('Ой!', res[1]);
+		}
+	});
+
+	document.getElementById('btn-reg').addEventListener('click', (e) => {
+		let pwd = [
+			document.getElementById('reg-passwd').value,
+			document.getElementById('reg-passwd2').value
+		];
+		if (pwd[0] !== pwd[1]) return notify('Ой!', 'Пароли не совпадают.');
+		let username = document.getElementById('reg-username').value;
+		let res = session.sign_up(username, pwd[0]);
+		if (res[0]) {
+			alter_page();
+			hide_modal('win-reg');
+		} else {
 			notify('Ой!', res[1]);
 		}
 	});
@@ -139,7 +154,7 @@ function fail(btn) {
 }
 
 function show_modal(win) {
-	if (win === 'win-login') {
+	if (win === 'win-login' || win === 'win-reg') {
 		let ins = document.querySelectorAll(`#${win} input`);
 		ins.forEach(e => e.value = "");
 		setTimeout(() => { ins[0].focus(); }, 0);
@@ -155,10 +170,12 @@ function alter_page() {
 	if (session.user !== null) {
 		document.getElementById('sign-out').classList.remove('hidden');
 		document.getElementById('sign-in').classList.add('hidden');
+		document.getElementById('sign-up').classList.add('hidden');
 		document.getElementById('status').textContent = `Привет, ${session.user}!`;
 	} else {
 		document.getElementById('sign-out').classList.add('hidden');
 		document.getElementById('sign-in').classList.remove('hidden');
+		document.getElementById('sign-up').classList.remove('hidden');
 		document.getElementById('status').textContent = '';
 	}
 }

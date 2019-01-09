@@ -19,35 +19,35 @@
 	width: 80%;
 }
 
-#win-login > .modal-content {
+.form > .modal-content {
 	width: 50%;
 	display: flex;
 	flex-flow: column nowrap;
 }
 
-#win-login .field {
+.form .field {
 	margin: .5rem 0;
 }
 
-#win-login .ctl {
+.form .ctl {
 	margin-top: 1.5rem;
 }
 
-#win-login input {
+.form input {
 	width: 100%;
 }
 
-#win-login .ctl {
+.form .ctl {
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
 }
 
-#win-login .ctl button {
+.form .ctl button {
 	width: 80%;
 }
 
-#win-stats button:hover, #win-login .ctl button:hover {
+#win-stats button:hover, .form .ctl button:hover {
 	color: #fff;
 	background-color: #000;
 	border-color: #fff;
