@@ -3,11 +3,30 @@ const SIDE = 5
 let board;
 let timer;
 let session;
+let ke;
 
 function init() {
 	board = new Board();
 	timer = new Timer();
 	session = new Session();
+
+	ke = new KeysEngine();
+	ke.load();
+	ke.add([
+		'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+		'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+		'b','a',' '
+	], () => {
+		if (session.mksu()) {
+			board.circle(
+				document.querySelector('[data-x="2"][data-y="2"]'), 'red'
+			);
+		}
+	});
+	ke.add(['i','d','d','q','d'], () => {
+		board.bang = !board.bang;
+		board.hint();
+	});
 
 	document.getElementById('btn-login').addEventListener('click', (e) => {
 		let username = document.getElementById('in-username').value;

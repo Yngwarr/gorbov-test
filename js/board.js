@@ -58,6 +58,7 @@ class Board {
 
 				session.save_dump(timer.dumps);
 				show_modal('win-stats');
+				if (this.bang) this.bang = undefined;
 			}
 		}
 		e.target.disabled = true;
@@ -65,6 +66,7 @@ class Board {
 			t.disabled = false;
 		}, 200, e.target)
 		++this.current;
+		if (this.bang) this.hint();
 	}
 	// fills buttons with random numbers
 	populate() {
@@ -139,10 +141,10 @@ class Board {
 			}
 			nbs = _.uniq(nbs);
 			if (bs.length === 0) {
-				dcb();
+				if (dcb) dcb();
 				return;
 			}
-			setTimeout(f, 200, nbs, bs, cls, brd, dcb);
+			setTimeout(f, 100, nbs, bs, cls, brd, dcb);
 		};
 		f([btn], [], cls, this, done_cb);
 	}
@@ -156,5 +158,14 @@ class Board {
 			return `[data-x='${_x}'][data-y='${_y}']`;
 		}).join(',');
 		return document.querySelectorAll(q);
+	}
+	hint() {
+		document.querySelectorAll('#board button').forEach((b) => {
+			if (b.textContent === this.current.toString() && this.bang) {
+				b.classList.add('hint');
+			} else {
+				b.classList.remove('hint');
+			}
+		});
 	}
 }
