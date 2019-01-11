@@ -10,6 +10,7 @@
 		<script src='./js/3rd/underscore-min.js'></script>
 		<script src='./js/3rd/sha256.js'></script>
 		<script src='./js/3rd/d3.js'></script>
+		<script src='./js/keys.js'></script>
 		<script src='./js/board.js'></script>
 		<script src='./js/timer.js'></script>
 		<script src='./js/session.js'></script>
@@ -28,6 +29,7 @@
 				<button id='sign-up' onclick='show_modal("win-reg")'>Зарегистрироваться</button>
 				<button id='start' onclick='start()'>Начать</button>
 				<button id='show-dump' class='hidden'>Последний результат</button>
+				<button id='show-tab' class='hidden' onclick='mk_tab(); show_modal("win-tab")'>Результаты</button>
 				<button id='sign-out' class='hidden'>Выйти</button>
 				<!--<button id='about'>Что это?</button>-->
 			</div>
@@ -148,6 +150,15 @@
 						<button onclick='hide_modal("win-stats")'>Закрыть</button>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div id='win-tab' class='modal hidden'>
+			<div class='modal-content'>
+				<center>
+					<h1>Список результатов</h1>
+					<table></table>
+					<button onclick='hide_modal("win-tab")'>Закрыть</button>
+				</center>
 			</div>
 		</div>
 		<div id='note' class='note hidden'>

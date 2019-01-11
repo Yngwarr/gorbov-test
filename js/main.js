@@ -69,8 +69,8 @@ function init() {
 	//start();
 }
 
-function draw_stats() {
-	let res = timer.dumps.map(d => JSON.parse(d));
+function draw_stats(ds = timer.dumps) {
+	let res = ds.map(d => JSON.parse(d));
 	let ts = _.flatten(res.map(r => deltify(r.s)));
 	let mcs = res.map(r => r.f.length);
 	let avg_t = ts.reduce((a,b) => a+b) / ts.length;
@@ -79,7 +79,7 @@ function draw_stats() {
 	document.getElementById('oa-max-t').textContent = p_secs(_.max(ts));
 	document.getElementById('oa-min-t').textContent = p_secs(_.min(ts));
 	document.getElementById('avg-mc').textContent = avg_mcs;
-	draw_results(JSON.parse(timer.dumps[0]));
+	draw_results(JSON.parse(ds[0]));
 }
 
 function draw_results(res) {
@@ -184,6 +184,22 @@ function hide_modal(win) {
 	document.getElementById(win).classList.add('hidden');
 }
 
+function mk_tab() {
+	if (!localStorage.ds) localStorage.ds = '[]';
+	let ds = JSON.parse(localStorage.ds);
+	let tab = document.querySelector('#win-tab table');
+	tab.innerHTML = '';
+	for (let i in ds) {
+		let tr = document.createElement('tr');
+		tr.innerHTML = `<td>${i}</td>`;
+		tr.addEventListener('click', e => {
+			draw_stats(ds[i]);
+			show_modal('win-stats');
+		});
+		tab.appendChild(tr);
+	}
+}
+
 function alter_page() {
 	if (session.user !== null) {
 		document.getElementById('sign-out').classList.remove('hidden');
@@ -200,6 +216,11 @@ function alter_page() {
 		document.getElementById('show-dump').classList.remove('hidden');
 	} else {
 		document.getElementById('show-dump').classList.add('hidden');
+	}
+	if (session.su) {
+		document.getElementById('show-tab').classList.remove('hidden');
+	} else {
+		document.getElementById('show-tab').classList.add('hidden');
 	}
 }
 
